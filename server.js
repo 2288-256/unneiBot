@@ -43,7 +43,7 @@ http
 // このイベントはログインした後に１度だけ実行します
 client.once("ready", () => {
   console.log("準備完了！");
-  client.user.setActivity('喫茶ステラと死神の蝶', {
+  client.user.setActivity('監視中', {
         type: 'WATCHING'
         /*
         typeの値:
