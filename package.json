@@ -1,33 +1,24 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
   "name": "unneibot-heroku",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
-  "main": "server.js",
+  "description": "A user-managed Discord.js bot running on discord.",
+  "main": "main.js",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "discord.js": "^12.5.2",
-    "querystring": "^0.2.1",
-    "ytdl-core": "^4.4.5",
-    "@discordjs/opus": "^0.5.0",
-    "ffmpeg-static": "^4.3.0"
-  },
-  "engines": {
-    "node": "12.x"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "type": "git",
+    "url": "git+https://github.com/2288-256/unneiBot.git"
   },
-  "license": "MIT",
   "keywords": [
-    "node",
-    "glitch",
-    "express"
+    "heroku",
+    "discord.js",
+    "user-managed"
   ],
-  "author": "2288"
+  "author": "2288",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2288-256/unneiBot/issues"
+  },
+  "homepage": "https://github.com/2288-256/unneiBot#readme"
 }
