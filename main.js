@@ -129,14 +129,14 @@ if (reg_command === "ninnsyou") {
 });
 
 
- 
+ const TOKEN = process.env.TOKEN
 
-if (process.env.TOKEN == undefined) {
+if (TOKEN == undefined) {
   console.log("DISCORD_BOT_TOKENが設定されていません。");
   process.exit(0);
 }
 
-client.login(process.env.TOKEN);
+client.login(TOKEN);
 
 function sendReply(message, text) {
   message
