@@ -6,39 +6,6 @@ const { prefix } = require("./config.json");
 // 新しいDiscordクライアントを作成
 const client = new Discord.Client();
 
-const ytdl = require('ytdl-core')
-const http = require("http");
-const querystring = require("querystring");
-const discord = require("discord.js");
-
-http
-  .createServer(function(req, res) {
-    if (req.method == "POST") {
-      var data = "";
-      req.on("data", function(chunk) {
-        data += chunk;
-      });
-      req.on("end", function() {
-        if (!data) {
-          console.log("No post data");
-          res.end();
-          return;
-        }
-        var dataObject = querystring.parse(data);
-        console.log("post:" + dataObject.type);
-        if (dataObject.type == "wake") {
-          console.log("Woke up in post");
-          res.end();
-          return;
-        }
-        res.end();
-      });
-    } else if (req.method == "GET") {
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("Discord Bot is active now\n");
-    }
-  })
-  .listen(3000);
 // クライアントの準備ができた際に実行されます
 // このイベントはログインした後に１度だけ実行します
 client.once("ready", () => {
@@ -163,37 +130,13 @@ if (reg_command === "ninnsyou") {
 
 
  
- client.on('message', async message => {
-   // メッセージが "!yt" からはじまっていてサーバー内だったら実行する
-   if (message.content.startsWith('!play') && message.guild) {
-     // メッセージから動画URLだけを取り出す
-     const url = message.content.split(' ')[1]
-     // まず動画が見つからなければ処理を止める
-     if (!ytdl.validateURL(url)) return message.reply('動画が存在しません！')
-     // コマンドを実行したメンバーがいるボイスチャンネルを取得
-     const channel = message.member.voice.channel
-     // コマンドを実行したメンバーがボイスチャンネルに入ってなければ処理を止める
-     if (!channel) return message.reply('先にボイスチャンネルに参加してください！')
-     // チャンネルに参加
-     const connection = await channel.join()
-     // 動画の音源を取得
-     const stream = ytdl(ytdl.getURLVideoID(url), { filter: 'audioonly' })
-     // 再生
-     const dispatcher = connection.play(stream)
-     
-     // 再生が終了したら抜ける
-     dispatcher.once('finish', () => {
-       channel.leave()
-     })
-   }
- })
 
-if (process.env.DISCORD_BOT_TOKEN == undefined) {
+if (process.env.TOKEN == undefined) {
   console.log("DISCORD_BOT_TOKENが設定されていません。");
   process.exit(0);
 }
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(process.env.TOKEN);
 
 function sendReply(message, text) {
   message
