@@ -1,11 +1,14 @@
 // Discord.jsモジュールを読み込む
-const Discord = require("discord.js");
+//const Discord = require("discord.js");
 //config.jsonを読み込む
 const { prefix } = require("./config.json");
 
 // 新しいDiscordクライアントを作成
-const client = new Discord.Client();
+//const client = new Discord.Client();
 
+const { Client, Intents } = require('discord.js');
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 // クライアントの準備ができた際に実行されます
 // このイベントはログインした後に１度だけ実行します
 client.once("ready", () => {
@@ -22,9 +25,6 @@ client.once("ready", () => {
         */
     });
 });
-
-// トークンを使ってDiscordにログイン
-client.login(process.env.DISCORD_BOT_TOKEN);
 
 client.on("message", message => {
   if (message.author.id == client.user.id) {
