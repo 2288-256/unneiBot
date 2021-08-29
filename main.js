@@ -1,5 +1,5 @@
 // Discord.jsモジュールを読み込む
-//const Discord = require("discord.js");
+const Discord = require("discord.js");
 //config.jsonを読み込む
 const { prefix } = require("./config.json");
 
@@ -13,8 +13,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // このイベントはログインした後に１度だけ実行します
 client.once("ready", () => {
   console.log("準備完了！");
-  client.user.setActivity('監視中', {
-        type: 'WATCHING'
+  client.user.setActivity('お仕事中', {
+        type: 'PLAYING'
         /*
         typeの値:
             https://discord.js.org/#/docs/main/stable/class/ClientUser?scrollTo=setActivity
@@ -32,42 +32,27 @@ client.on("message", message => {
   }
   console.log(message.content);
 
+//引数設定
   const reg = message.content.slice(prefix.length).split(" ");
   const reg_command = reg.shift().toLowerCase();
   const channelsID = message.channel.id;
 
-if (reg_command === "ninnsyou") {
-  
-}
-
+//ここからコマンド判定
   if (channelsID === "811214969336496158") {
     if (reg_command === "ninnsyou") {
       message.member.roles.remove("811486461291266062");
-      client.channels.cache
-        .get(message.channel.id)
-        .send("旧認証ロールを剥奪しました");
+      message.channel.send("旧認証ロールを剥奪しました");
     }
   }
-  if (message.channel.parent.id === "811211229212704769") {
-    console.log("検知範囲外のため反応しません");
-    return;
-  } else {
     if (message.content.match(/uuid|cuuid/)) {
       if (channelsID === "827090966204121138") {
         if (reg_command === "uuid") {
           if (reg[0] === undefined) {
-            client.channels.cache
-              .get(message.channel.id)
-              .send("ユーザーネームを入力してください");
+              message.channel.send("ユーザーネームを入力してください");
           } else {
-            client.channels.cache
-              .get(message.channel.id)
-              .send(
-                "認証しました\r<#812616466692177931>の規約に同意してください"
-              );
+              message.channel.send("認証しました\r<#812616466692177931>の規約に同意してください");
             message.member.roles.add("827438041400475668");
             //embed(埋め込み)の設定
-
             const embed = new Discord.MessageEmbed()
               .setAuthor(
                 message.author.tag + "(" + message.author.id + ")",
@@ -79,28 +64,20 @@ if (reg_command === "ninnsyou") {
               .setThumbnail(message.author.avatarURL())
               .addField("UUID", reg[0]);
 
-            client.channels.cache.get("827091403334877248").send(embed);
+            client.channels.cache.get("827091403334877248").send({ embeds: [embed] });
           }
         } else {
           if (reg_command === "cuuid") {
           } else {
-            client.channels.cache
-              .get(message.channel.id)
-              .send(
-                "!uuid [プレイヤーネーム]を打って送信してください \r BEの方はBE_を忘れずに！！"
-              );
+            message.channel.send("!uuid [プレイヤーネーム]を打って送信してください \r BEの方はBE_を忘れずに！！");
           }
         }
 
         if (reg_command === "cuuid") {
           if (reg[0] === undefined) {
-            client.channels.cache
-              .get(message.channel.id)
-              .send("ユーザーネームを入力してください");
+            message.channel.send("ユーザーネームを入力してください");
           } else {
-            client.channels.cache
-              .get(message.channel.id)
-              .send("MCIDを変更しました");
+            message.channel.send("MCIDを変更しました");
             //embed(埋め込み)の設定
 
             const embed = new Discord.MessageEmbed()
@@ -114,19 +91,16 @@ if (reg_command === "ninnsyou") {
               .setThumbnail(message.author.avatarURL())
               .addField("変更後のUUID", reg[0]);
 
-            client.channels.cache.get("827091403334877248").send(embed);
+            client.channels.cache.get("827091403334877248").send({ embeds: [embed] });
           }
         }
       } else {
-        client.channels.cache
-          .get(message.channel.id)
-          .send("<#827090966204121138>で送信してください");
+        message.channel.send("<#827090966204121138>で送信してください");
       }
     } else {
       return;
     }
-  }
-});
+  });
 
 
  const TOKEN = process.env.TOKEN
