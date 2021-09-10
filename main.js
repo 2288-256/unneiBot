@@ -12,8 +12,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 // クライアントの準備ができた際に実行されます
 // このイベントはログインした後に１度だけ実行します
 client.once("ready", () => {
-  console.log("準備完了！"); 
-  client.channels.cache.get("868114596370735155").send('起動しました');
+  console.log("準備完了！(" + process.env.location + ")"); 
+  client.channels.cache.get("868114596370735155").send('起動しました(from: '+ process.env.location + ")");
   client.user.setActivity('お仕事中', {
         type: 'PLAYING'
         /*
